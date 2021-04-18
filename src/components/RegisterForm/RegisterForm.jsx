@@ -1,13 +1,16 @@
 import React from 'react';
-import s from './RegisterForm.module.css';
-import { connect } from 'react-redux';
-import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { Button, TextField } from '@material-ui/core';
+
+import s from './RegisterForm.module.css';
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 import NameIcon from '@material-ui/icons/SupervisorAccount';
 import EmailIcon from '@material-ui/icons/Email';
-import { Button, TextField } from '@material-ui/core';
 import ShowHidePassword from '../ShowHidePassword';
+
 import { authOperations } from '../../redux/auth';
 
 const validationSchema = yup.object({
@@ -31,7 +34,9 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password')], 'Password does not match'),
 });
 
-function RegisterForm({ addUserToDb }) {
+export default function RegisterForm() {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -51,7 +56,7 @@ function RegisterForm({ addUserToDb }) {
       email: values.email,
       password: values.password,
     };
-    addUserToDb(newUser);
+    dispatch(authOperations.registerNewUser(newUser));
     resetForm();
   }
 
@@ -149,9 +154,3 @@ function RegisterForm({ addUserToDb }) {
     </div>
   );
 }
-
-const mapDispatchToProps = {
-  addUserToDb: authOperations.registerNewUser,
-};
-
-export default connect(null, mapDispatchToProps)(RegisterForm);

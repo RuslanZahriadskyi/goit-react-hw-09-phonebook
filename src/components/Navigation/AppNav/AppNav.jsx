@@ -1,12 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 import { authSelectors } from '../../../redux/auth';
+
 import s from './AppNav.module.css';
+
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import HomeIcon from '@material-ui/icons/Home';
 
-const AppNav = ({ token }) => {
+export default function AppNav() {
+  const token = useSelector(authSelectors.getToken);
+
   return (
     <div className={s.app__nav}>
       <NavLink to="/" className={s.nav__link}>
@@ -22,10 +27,4 @@ const AppNav = ({ token }) => {
       )}
     </div>
   );
-};
-
-const mapStateToProps = state => ({
-  token: authSelectors.getToken(state),
-});
-
-export default connect(mapStateToProps)(AppNav);
+}

@@ -1,7 +1,11 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { authOperations } from '../../redux/auth';
 import { InputAdornment, TextField, Button } from '@material-ui/core';
+
 import s from './LoginForm.module.css';
+
 import EmailIcon from '@material-ui/icons/Email';
 import ShowHidePassword from '../ShowHidePassword';
 
@@ -14,7 +18,8 @@ const validationSchema = Yup.object({
     .required('Password is required'),
 });
 
-const LoginForm = ({ onLoginUser }) => {
+const LoginForm = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -22,7 +27,7 @@ const LoginForm = ({ onLoginUser }) => {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      onLoginUser(values);
+      dispatch(authOperations.loginUser(values));
     },
   });
 

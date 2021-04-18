@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { contactsAction, contactsSelectors } from '../../redux/contacts';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { contactsAction, contactsSelectors } from '../../redux/contacts';
 
 const rootModal = document.getElementById('root-modal');
 
@@ -21,8 +22,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function MyModal({ children, getModalValue, closeModal }) {
+export default function MyModal({ children }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const getModalValue = useSelector(contactsSelectors.getModalValue);
+  const closeModal = useCallback(() => dispatch(contactsAction.closeModal()), [
+    dispatch,
+  ]);
 
   return createPortal(
     <div>
@@ -40,13 +47,3 @@ function MyModal({ children, getModalValue, closeModal }) {
     rootModal,
   );
 }
-
-const mapStateToProps = state => ({
-  getModalValue: contactsSelectors.getModalValue(state),
-});
-
-const mapDispatchToProps = {
-  closeModal: contactsAction.closeModal,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyModal);

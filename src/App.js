@@ -1,7 +1,7 @@
-import { Component, Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { authOperations, authSelectors } from './redux/auth';
+import { useDispatch } from 'react-redux';
+import { authOperations } from './redux/auth';
 import { Container } from '@material-ui/core';
 import Navigation from './components/Navigation';
 import PrivateRouter from './components/PrivateRouter';
@@ -15,9 +15,7 @@ const HomePage = lazy(() =>
   import('./views/HomePage' /* webpackChunkName: "home-page" */),
 );
 const ContactsPage = lazy(() =>
-  import(
-    './views/ContactsPage/ContactsPage.container' /* webpackChunkName: "contacts-page" */
-  ),
+  import('./views/ContactsPage' /* webpackChunkName: "contacts-page" */),
 );
 const RegisterPage = lazy(() =>
   import('./views/RegisterPage' /* webpackChunkName: "register-page" */),
@@ -31,57 +29,42 @@ const bounce = cssTransition({
   exit: 'animate__animated animate__hinge',
 });
 
-class App extends Component {
-  componentDidMount() {
-    this.props.getCurrentUser();
-  }
+export default function App() {
+  const dispatch = useDispatch();
 
-  render() {
-    // console.log();
-    return (
-      <>
-        <ToastContainer transition={bounce} autoClose={2000} />
+  useEffect(() => {
+    dispatch(authOperations.getCurrentUser());
+  }, [dispatch]);
 
-        <Container maxWidth="md">
-          <Navigation />
-          <Suspense
-            fallback={
-              <div>
-                <Loading />
-              </div>
-            }
-          >
-            <Switch>
-              <Route path="/" exact component={HomePage} />
-              <PrivateRouter path="/contacts" exact component={ContactsPage} />
-              <PublicRouter
-                path="/login"
-                restricted
-                exact
-                component={LoginPage}
-              />
-              <PublicRouter
-                path="/register"
-                restricted
-                exact
-                component={RegisterPage}
-              />
-            </Switch>
-          </Suspense>
-        </Container>
-      </>
-    );
-  }
+  return (
+    <>
+      <ToastContainer transition={bounce} autoClose={2000} />
+
+      <Container maxWidth="md">
+        <Navigation />
+        <Suspense
+          fallback={
+            <div>
+              <Loading />
+            </div>
+          }
+        >
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <PrivateRouter path="/contacts" exact>
+              <ContactsPage />
+            </PrivateRouter>
+            <PublicRouter path="/login" restricted exact>
+              <LoginPage />
+            </PublicRouter>
+            <PublicRouter path="/register" restricted exact>
+              <RegisterPage />
+            </PublicRouter>
+          </Switch>
+        </Suspense>
+      </Container>
+    </>
+  );
 }
-
-const mapStateToProps = state => ({
-  token: authSelectors.getToken(state),
-});
-
-const mapDispatchToProps = {
-  getCurrentUser: authOperations.getCurrentUser,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-// export default App;

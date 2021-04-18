@@ -3,8 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import s from '../App.module.css';
 
-const Register = ({ location }) => {
-  // console.log(location);
+const Register = () => {
   return (
     <Paper elevation={3} className={s.reg__container}>
       <RegisterForm />
