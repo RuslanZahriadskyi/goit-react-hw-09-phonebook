@@ -1,0 +1,42 @@
+.container {
+  margin: 0 auto;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.label__name,
+.label__number {
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  margin-bottom: 20px;
+  font-size: 20px;
+  /* margin-left: 10px; */
+}
+
+.label__input {
+  width: 250px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+.form__container {
+  width: 250px;
+}
+
+.form {
+  padding: 15px;
+}
+
+.button__submitForm {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.button__submitForm:hover,
+.button__submitForm:focus {
+  cursor: pointer;
+  background: green;
+  color: white;
+}

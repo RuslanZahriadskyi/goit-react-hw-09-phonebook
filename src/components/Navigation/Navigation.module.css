@@ -1,0 +1,59 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px 0;
+}
+
+.user__nav {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout__button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  margin-left: 5px;
+  color: #006ea5;
+  background-color: #fff;
+  transition: 0.4s linear;
+}
+
+.logout__button:hover,
+.logout__button:focus {
+  color: #3700ff;
+  transform: scale(1.2);
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+
+  font-size: 20px;
+  list-style: none;
+  text-decoration: none;
+  transition: 0.4s linear;
+}
+
+.nav__link:hover {
+  color: #3700ff;
+  transform: scale(1.2);
+}
+
+.user__name {
+  font-size: 20px;
+}
+
+.user__circle {
+  margin-right: 10px;
+}
+
+.user__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

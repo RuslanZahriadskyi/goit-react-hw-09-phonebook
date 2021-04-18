@@ -1,0 +1,27 @@
+.app__nav {
+  width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.nav__contacts {
+  margin-left: 20px;
+}
+
+.nav__link,
+.nav__contacts {
+  display: flex;
+  align-items: center;
+
+  font-size: 20px;
+
+  list-style: none;
+  text-decoration: none;
+  transition: 0.4s linear;
+}
+
+.nav__link:hover,
+.nav__contacts:hover {
+  color: #3700ff;
+  transform: scale(1.2);
+}
