@@ -13,6 +13,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import userImage from './user.jpg';
 
 import AppNav from './AppNav/AppNav';
+import { toast } from 'react-toastify';
 
 export default function Navigation() {
   const token = useSelector(authSelectors.getToken);
@@ -20,6 +21,9 @@ export default function Navigation() {
   const isAutorized = useSelector(authSelectors.isAutorizedUser);
 
   const dispatch = useDispatch();
+  const logoutNtf = () => {
+    toast.info('Goodbye and come back again');
+  };
 
   return (
     <div className={s.navigation}>
@@ -30,7 +34,7 @@ export default function Navigation() {
             <img src={userImage} alt="avatar user" className={s.user__avatar} />
             {isAutorized && <p className={s.user__name}>Welcome, {userName}</p>}
             <button
-              onClick={() => dispatch(authOperations.logoutUser())}
+              onClick={() => dispatch(authOperations.logoutUser(), logoutNtf())}
               className={s.logout__button}
             >
               <ExitToAppIcon fontSize="large" style={{ fontSize: 40 }} />
