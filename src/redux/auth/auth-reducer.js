@@ -35,10 +35,20 @@ const isAutorizedReducer = createReducer(false, {
   [gentCurrentUserError]: () => false,
 });
 
+const errorReducer = createReducer('', {
+  [userLoginError]: (_, { payload }) => payload,
+  [userRegisterError]: (_, { payload }) => payload,
+  [gentCurrentUserError]: (_, { payload }) => payload,
+  [userLoginSuccess]: (_, __) => '',
+  [userRegisterSuccess]: (_, __) => '',
+  [getCurrentUserSuccess]: (_, __) => '',
+});
+
 const authReducers = combineReducers({
   user: userReducer,
   token: tokenReducer,
   isAutorized: isAutorizedReducer,
+  error: errorReducer,
 });
 
 export default authReducers;

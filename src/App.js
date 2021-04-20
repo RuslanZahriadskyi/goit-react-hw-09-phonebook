@@ -1,13 +1,13 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { authOperations } from './redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from './redux/auth';
 import { Container } from '@material-ui/core';
 import Navigation from './components/Navigation';
 import PrivateRouter from './components/PrivateRouter';
 import PublicRouter from './components/PublicRouter';
 import Loading from './components/Loader';
-import { ToastContainer, cssTransition } from 'react-toastify';
+import { ToastContainer, cssTransition, toast } from 'react-toastify';
 import 'animate.css/animate.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,13 +32,20 @@ const bounce = cssTransition({
 export default function App() {
   const dispatch = useDispatch();
 
+  const error = useSelector(authSelectors.getErrorValue);
+
   useEffect(() => {
     dispatch(authOperations.getCurrentUser());
   }, [dispatch]);
 
+  console.log(toast.error('Email does`t exist please register'));
+
   return (
     <>
       <ToastContainer transition={bounce} autoClose={2000} />
+
+      {error === 'login error' &&
+        toast.error('Email does`t exist please register')}
 
       <Container maxWidth="md">
         <Navigation />

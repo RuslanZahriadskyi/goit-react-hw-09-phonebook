@@ -43,7 +43,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
 
     dispatch(getCurrentUserSuccess(data));
   } catch (error) {
-    dispatch(gentCurrentUserError(error.message));
+    dispatch(gentCurrentUserError('Current user error'));
   }
 };
 
@@ -58,8 +58,7 @@ const registerNewUser = newUser => async dispatch => {
     token.set(data.token);
     dispatch(userRegisterSuccess(data));
   } catch (error) {
-    toast.error('Email or user already exist');
-    dispatch(userRegisterError(error.message));
+    dispatch(userRegisterError('register error'));
   }
 };
 
@@ -74,8 +73,7 @@ const loginUser = user => async dispatch => {
     token.set(data.token);
     dispatch(userLoginSuccess(data));
   } catch (error) {
-    toast.error('Email or password is incorrect');
-    dispatch(userLoginError(error.message));
+    dispatch(userLoginError('login error'));
   }
 };
 
