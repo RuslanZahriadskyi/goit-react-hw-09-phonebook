@@ -33,19 +33,20 @@ export default function App() {
   const dispatch = useDispatch();
 
   const error = useSelector(authSelectors.getErrorValue);
+  const userName = useSelector(authSelectors.getUserName);
 
   useEffect(() => {
     dispatch(authOperations.getCurrentUser());
   }, [dispatch]);
 
-  console.log(toast.error('Email does`t exist please register'));
+  useEffect(() => {
+    error && toast.error(`${error}`);
+    userName && toast.success(`Welcome dear ${userName}`);
+  }, [error, userName]);
 
   return (
     <>
       <ToastContainer transition={bounce} autoClose={2000} />
-
-      {error === 'login error' &&
-        toast.error('Email does`t exist please register')}
 
       <Container maxWidth="md">
         <Navigation />

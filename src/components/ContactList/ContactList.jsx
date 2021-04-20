@@ -30,7 +30,7 @@ export default function ContactList({ contactForEdit }) {
   );
 
   const onEditClick = useCallback(
-    () => dispatch(contactsAction.changeContact),
+    () => dispatch(contactsAction.changeContact()),
     [dispatch],
   );
 

@@ -26,8 +26,9 @@ const LoginForm = () => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: values => {
+    onSubmit: (values, { resetForm }) => {
       dispatch(authOperations.loginUser(values));
+      resetForm();
     },
   });
 

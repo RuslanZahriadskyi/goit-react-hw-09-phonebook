@@ -12,7 +12,7 @@ export default function ContactsPage() {
   const [contactForEdit, setContactForEdit] = useState(null);
 
   const getContactForEdit = contactForEdit => {
-    setContactForEdit({ ...contactForEdit });
+    setContactForEdit(contactForEdit);
   };
 
   const onAddBtn = () => {

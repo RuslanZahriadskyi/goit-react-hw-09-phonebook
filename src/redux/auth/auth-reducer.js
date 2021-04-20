@@ -25,20 +25,24 @@ const tokenReducer = createReducer(null, {
   [gentCurrentUserError]: () => null,
 });
 
+const setiIsAutorized = () => true;
+
 const isAutorizedReducer = createReducer(false, {
-  [userRegisterSuccess]: () => true,
-  [getCurrentUserSuccess]: () => true,
-  [userLoginSuccess]: () => true,
+  [userRegisterSuccess]: setiIsAutorized,
+  [getCurrentUserSuccess]: setiIsAutorized,
+  [userLoginSuccess]: setiIsAutorized,
   [userLoginError]: () => false,
   [userLogoutSuccess]: () => false,
   [userRegisterError]: () => false,
   [gentCurrentUserError]: () => false,
 });
 
+const setError = (_, { payload }) => payload;
+
 const errorReducer = createReducer('', {
-  [userLoginError]: (_, { payload }) => payload,
-  [userRegisterError]: (_, { payload }) => payload,
-  [gentCurrentUserError]: (_, { payload }) => payload,
+  [userLoginError]: setError,
+  [userRegisterError]: setError,
+  [gentCurrentUserError]: setError,
   [userLoginSuccess]: (_, __) => '',
   [userRegisterSuccess]: (_, __) => '',
   [getCurrentUserSuccess]: (_, __) => '',

@@ -36,22 +36,25 @@ const itemsReducers = createReducer([], {
     state.filter(contact => contact.id !== payload),
 });
 
+const setTrue = () => true;
+const setFalse = () => false;
+
 const loading = createReducer(false, {
-  [addContactRequest]: () => true,
-  [addContactSuccess]: () => false,
-  [addContactError]: () => false,
-  [editContactRequest]: () => true,
-  [editContactSuccess]: () => false,
-  [editContactError]: () => false,
-  [deleteContactRequest]: () => true,
-  [deleteContactSuccess]: () => false,
-  [deleteContactError]: () => false,
-  [initContactsRequest]: () => true,
-  [initContactsSuccess]: () => false,
-  [initContactsError]: () => false,
-  [getCurrentUserRequest]: () => true,
-  [getCurrentUserSuccess]: () => false,
-  [gentCurrentUserError]: () => false,
+  [addContactRequest]: setTrue,
+  [addContactSuccess]: setFalse,
+  [addContactError]: setFalse,
+  [editContactRequest]: setTrue,
+  [editContactSuccess]: setFalse,
+  [editContactError]: setFalse,
+  [deleteContactRequest]: setTrue,
+  [deleteContactSuccess]: setFalse,
+  [deleteContactError]: setFalse,
+  [initContactsRequest]: setTrue,
+  [initContactsSuccess]: setFalse,
+  [initContactsError]: setFalse,
+  [getCurrentUserRequest]: setTrue,
+  [getCurrentUserSuccess]: setFalse,
+  [gentCurrentUserError]: setFalse,
 });
 
 const filterReducer = createReducer('', {
@@ -59,11 +62,11 @@ const filterReducer = createReducer('', {
 });
 
 const modalReducer = createReducer(false, {
-  [openModal]: () => true,
-  [changeContact]: () => true,
-  [addContactSuccess]: () => false,
-  [editContactSuccess]: () => false,
-  [closeModal]: () => false,
+  [openModal]: setTrue,
+  [changeContact]: setTrue,
+  [addContactSuccess]: setFalse,
+  [editContactSuccess]: setFalse,
+  [closeModal]: setFalse,
 });
 
 //=================================================================

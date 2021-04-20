@@ -43,7 +43,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
 
     dispatch(getCurrentUserSuccess(data));
   } catch (error) {
-    dispatch(gentCurrentUserError('Current user error'));
+    dispatch(gentCurrentUserError('Current user error please login'));
   }
 };
 
@@ -53,12 +53,10 @@ const registerNewUser = newUser => async dispatch => {
   try {
     const { data } = await axios.post('/users/signup', newUser);
 
-    toast.success(`You are successfully register as ${data.user.name}`);
-
     token.set(data.token);
     dispatch(userRegisterSuccess(data));
   } catch (error) {
-    dispatch(userRegisterError('register error'));
+    dispatch(userRegisterError('Name or email already exist'));
   }
 };
 
@@ -68,12 +66,10 @@ const loginUser = user => async dispatch => {
   try {
     const { data } = await axios.post('/users/login', user);
 
-    toast.success(`You are successfully login as ${data.user.name}`);
-
     token.set(data.token);
     dispatch(userLoginSuccess(data));
   } catch (error) {
-    dispatch(userLoginError('login error'));
+    dispatch(userLoginError('Email or password does`t exist'));
   }
 };
 
@@ -82,8 +78,6 @@ const logoutUser = () => async dispatch => {
 
   try {
     axios.post('/users/logout');
-
-    toast.warn('You have successfully logout');
 
     token.unSet();
     dispatch(userLogoutSuccess());
