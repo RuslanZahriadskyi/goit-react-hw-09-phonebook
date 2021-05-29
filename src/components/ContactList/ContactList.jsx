@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
@@ -23,16 +23,6 @@ export default function ContactList({ contactForEdit }) {
   useEffect(() => {
     dispatch(contactsOperations.initContacts());
   }, [dispatch]);
-
-  const deleteContact = useCallback(
-    id => dispatch(contactsOperations.deleteContact(id)),
-    [dispatch],
-  );
-
-  const onEditClick = useCallback(
-    () => dispatch(contactsAction.changeContact()),
-    [dispatch],
-  );
 
   return (
     <ul className={s.contacts__list}>
@@ -59,7 +49,7 @@ export default function ContactList({ contactForEdit }) {
                   name="editContact"
                   onClick={() => {
                     contactForEdit({ name, number, id });
-                    onEditClick();
+                    dispatch(contactsAction.changeContact());
                   }}
                 >
                   <EditIcon fontSize="large" />
@@ -67,7 +57,7 @@ export default function ContactList({ contactForEdit }) {
                 <button
                   className={s.contact__btn__delete}
                   type="button"
-                  onClick={() => deleteContact(id)}
+                  onClick={() => dispatch(contactsOperations.deleteContact(id))}
                 >
                   <DeleteIcon fontSize="large" />
                 </button>

@@ -14,7 +14,7 @@ import {
   editContactSuccess,
 } from './contacts-action';
 
-axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+// axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
 
 const initContacts = () => async dispatch => {
   dispatch(initContactsRequest());
